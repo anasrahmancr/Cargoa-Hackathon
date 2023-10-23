@@ -4,14 +4,14 @@ import bodyParser from 'body-parser';
 import userRouter from './routes/user.js';
 import authRouter from './routes/auth.js';
 import connectDB from './config/config.js';
-
+import cors from 'cors';
 
 const app = express();
 
 // Configure Express middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cors());
 // Define routes
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);

@@ -6,6 +6,7 @@ import bcrypt from 'bcrypt';
 
 const login = async(req, res) => {
     winston.info(`req.bodyyyy', ${req.body}`)
+    console.log(req.body);
     try{
         const {email, password} = req.body;
         const user = await User.findOne({email: email}) ;
