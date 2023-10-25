@@ -82,7 +82,7 @@ export const CreateOrder = () => {
         }
       );
       if (response.data.success) {
-        navigate("/user-home");
+        navigate("/home");
       } else {
         alert("Error");
         navigate("/create-order");
@@ -162,7 +162,7 @@ export const CreateOrder = () => {
             </div>
             <div className="mb-4">
               <div>
-                <label>Upload PDF:</label>
+                <label>Purchase Order:</label>
                 <input
                   type="file"
                   id="upload-purchase-order"
@@ -171,11 +171,11 @@ export const CreateOrder = () => {
                   accept=".pdf"
                 />
                 <button
-                  className="view-pdf text-black focus:outline-none focus:shadow-outline"
+                  className="upload-pdf text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:shadow-outline"
                   type="button"
                   onClick={fileSubmitHandler}
                 >
-                  Upload PDF
+                  Upload
                 </button>
               </div>
             </div>

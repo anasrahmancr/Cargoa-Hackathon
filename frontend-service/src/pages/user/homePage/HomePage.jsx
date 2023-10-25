@@ -18,7 +18,7 @@ export const HomePage = () => {
         </div>
         <div className="view-order">
           <Link
-            to="/view-order"
+            to="/view-orders"
             className="text-black font-bold focus:outline-none focus:shadow-outline"
           >
             VIEW ORDER
