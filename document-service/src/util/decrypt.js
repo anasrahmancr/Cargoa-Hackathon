@@ -1,13 +1,17 @@
-import JWT_SECRET from '../util/jwtKey.js';
 import jwt from 'jsonwebtoken';
 
-const decrypt = async(token) => {
+const decrypt = (token, key) => {
+  console.log(key,"keyyy --------- toekk emmm",token);
+
   if (token) {
-    jwt.verify(token, JWT_SECRET, (err, decodedToken) => {
+    jwt.verify(token, key, (err, decodedToken) => {
       if (err) {
+        console.log("inside if decrypt");
         res.status(401).json({ success: false, message: "Permission denied" });
       } else {
+        console.log("else in decrypt");
         req.userId = decodedToken;
+        return decodedToken;
       }
     });
   }

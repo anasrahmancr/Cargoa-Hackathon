@@ -1,27 +1,32 @@
 import FormEntry from "../model/FormEntry.js";
 import decrypt from "../util/decrypt.js";
+import jwt from 'jsonwebtoken';
 
-const userUpload = (req, res) => {
+const userUpload = async(req, res) => {
   try {
-    const {productName, quantity, dateOfShipping, vendor, purchaseOrder } = req.body;
+    const {productName, quantity, dateOfShipping, vendorId, purchaseOrders } = req.body;
     console.log(req.body, "check req.bodyYYYYYY");
     
-    if(!vendor || !productName || !quantity || !dateOfShipping || !purchaseOrder){
+    if(!vendorId || !productName || !quantity || !dateOfShipping || !purchaseOrders){
       return res.status(400).json({message: "Fill all the fields"});
     }
     
     const token = req.header('Authorization').split('Bearer ')[1];
-    const userId = decrypt(token);
-    console.log(userId,"userId");
+    console.log(token,"token");
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const { userId, email } = decodedToken;
+    // const userId = decrypt(token);
+    console.log(userId, email,"userId enayj");
+    // const userId = await decrypt(token, process.env.JWT_SECRET);
   
     // Store the data in a MongoDB database
     const formEntry = new FormEntry({
       userId: userId,
-      vendorName: vendor, 
+      vendorId: vendorId, 
       productName: productName,
       quantity: quantity,
       dateOfShipping: dateOfShipping,
-      documentUrl: documentUrl,
+      documentUrl: purchaseOrders,
 
     });
 
