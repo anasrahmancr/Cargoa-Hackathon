@@ -1,18 +1,23 @@
 import FormEntry from "../model/FormEntry.js";
+import decrypt from "../util/decrypt.js";
 
 const userUpload = (req, res) => {
   try {
-    const { userName, vendorName, productName, quantity, dateOfShipping, documentUrl } = req.body;
+    const {productName, quantity, dateOfShipping, vendor, purchaseOrder } = req.body;
     console.log(req.body, "check req.bodyYYYYYY");
-
-    if(!vendorName || !productName || !quantity || !dateOfShipping || !documentUrl){
-        return res.status(400).json({message: "Fill all the fields"});
+    
+    if(!vendor || !productName || !quantity || !dateOfShipping || !purchaseOrder){
+      return res.status(400).json({message: "Fill all the fields"});
     }
     
+    const token = req.header('Authorization').split('Bearer ')[1];
+    const userId = decrypt(token);
+    console.log(userId,"userId");
+  
     // Store the data in a MongoDB database
     const formEntry = new FormEntry({
-      // userName: userName,
-      vendorName: vendorName, 
+      userId: userId,
+      vendorName: vendor, 
       productName: productName,
       quantity: quantity,
       dateOfShipping: dateOfShipping,

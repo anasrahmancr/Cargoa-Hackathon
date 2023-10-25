@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import userRouter from './routes/userRouter.js';
 import vendorRouter from './routes/vendorRouter.js';
 import connectDB from './config/config.js';
+import cors from 'cors';
 
 
 const app = express();
@@ -11,6 +12,8 @@ const app = express();
 // Configure Express middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cors());
 
 // Define routes
 app.use('/api/user', userRouter);
