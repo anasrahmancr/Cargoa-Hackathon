@@ -1,16 +1,17 @@
 import React from "react";
-import { Header } from "../Header";
-import "./complete.css";
+import { Header } from "../../user/Header";
+import "./pending.css";
 import { Link } from "react-router-dom";
 
-export const Complete = ({order}) => {
+export const VendorPending = ({order}) => {
+  // console.log("order in vendor pending", order.vendorOptions)
   return (
     <div>
       <Header />
       <div className="main p-16">
         <div className="back">
           <Link
-            to="/view-orders"
+            to="/review-orders"
             className=" text-black font-medium focus:outline-none focus:shadow-outline"
           >
             BACK
@@ -23,10 +24,16 @@ export const Complete = ({order}) => {
             <p>Date Of Shipping : {order.dateOfShipping}</p>
             <p>Vendor : {order.vendorId}</p>
             <p>Purchase Order : {order.documentUrl}</p>
-            <div className="flex">
-              <p>Scheduled Date :  </p>
-              <p className="text-green-600">{"\u00a0"}{order.selectedSchedule}</p>
-            </div>
+            {order.vendorOptions.length > 0 ? (
+              order.vendorOptions.map((vendorDate, index) => (
+                <p>{`Shipping Schedule ${index + 1}: ${vendorDate}`}</p>
+              ))
+            ) : (
+              <div>No Schedule Dates Available</div>
+            )}
+          </div>
+          <div className="text-yellow-500 font-bold mb-20 text-xl">
+            Pending from user...
           </div>
         </div>
       </div>

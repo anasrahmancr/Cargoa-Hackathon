@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export const Header = () => {
   const handleLogout = () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("vendorToken");
     console.log("Logout clicked!");
   };
 

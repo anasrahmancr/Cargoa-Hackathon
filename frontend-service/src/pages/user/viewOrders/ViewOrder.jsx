@@ -64,13 +64,13 @@ export const ViewOrder = () => {
                         </th>
                         <th className="content-body p-3">
                           {(() => {
-                            if (!order.vendorOptions) {
+                            if (order.vendorOptions.length === 0) {
                               return (
                                 <div className="bg-yellow-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                                   Pending
                                 </div>
                               );
-                            } else if (order.vendorOption && selectedSchedule) {
+                            } else if (order.vendorOptions.length > 0 && order.selectedSchedule) {
                               return (
                                 <div className="bg-green-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                                   Completed

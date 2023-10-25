@@ -15,11 +15,12 @@ export const VendorLogin = () => {
     e.preventDefault();
     try {
         const response = await axios.post(
-          "http://localhost:8080/api/auth/login",
-          {email, password}, {withCredentials: true}
+          "http://localhost:8080/api/auth/vendorLogin",
+          {email, password}
         );
          console.log("Logged in:",response.data);
         if(response.data.success){
+          localStorage.setItem("vendorToken", response.data.vendorToken)
           navigate("/vendor-home");
         }else{
           navigate("/")
