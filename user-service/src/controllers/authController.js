@@ -5,8 +5,8 @@ import hashing from '../util/hashing.js';
 import bcrypt from 'bcrypt';
 
 const login = async(req, res) => {
-    winston.info(`req.bodyyyy', ${req.body}`)
     console.log(req.body);
+    winston.info(`req.bodyyyy', ${req.body}`)
     try{
         const {email, password} = req.body;
         const user = await User.findOne({email: email}) ;
@@ -19,7 +19,7 @@ const login = async(req, res) => {
             return res.status(401).json({success: false, message: 'Incorrect Password'});
         } 
         // Generate JWT Token
-        const key = process.env.JWT_SECRET
+        const key = process.env.JWT_SECRET;
         const token = jwt.sign({userId: user._id, email: user.email}, key , {expiresIn: '24h'});
 
         res.status(200).json({userToken: token, success: true});
@@ -36,8 +36,8 @@ const login = async(req, res) => {
 const register = async(req, res) => {
     winston.warn(`${req.body}`);
     try{
-        const {name, email, password} = req.body;
-        if(!name || ! email || !password){
+        const {username, email, password} = req.body;
+        if(!username || ! email || !password){
             return res.status(400).json({message: "Fill all the fields"});
         }
         const user = await User.findOne({email : email});
@@ -49,7 +49,7 @@ const register = async(req, res) => {
         const hashedPassword = await hashing(password);
         
         const newUser = new User({
-          username: name,
+          username: username,
           email: email,
           password: hashedPassword,
         });
