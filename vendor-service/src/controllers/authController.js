@@ -1,13 +1,12 @@
-import winston from '../util/logger.js';
 import jwt from 'jsonwebtoken';
 import Vendor from '../models/Vendor.js';
 import hashing from '../util/hashing.js';
 import bcrypt from 'bcrypt';
 
 const login = async(req, res) => {
-    winston.info(`req.bodyyyy', ${req.body}`)
     try{
         const {email, password} = req.body;
+       
         const vendor = await Vendor.findOne({email: email}) ;
         if(!vendor){
             return res.status(401).json({success: false, message: 'Please Login using Registered Email'})
@@ -20,7 +19,7 @@ const login = async(req, res) => {
         // Generate JWT Token
         const key = process.env.JWT_SECRET
         const token = jwt.sign({vendorId : vendor._id, email: vendor.email}, key , {expiresIn: '24h'});
-
+        console.log(token, "vendor token ");
         res.status(200).json({vendorToken: token, success: true});
 
     } catch (error) {
@@ -35,7 +34,7 @@ const login = async(req, res) => {
 const register = async(req, res) => {
     console.log("hiiiii");
     console.log(req.body);
-    winston.warn(`${req.body}`);
+    
     try{
         const {username, email, password} = req.body;
         if(!username || ! email || !password){
@@ -57,7 +56,6 @@ const register = async(req, res) => {
         await newVendor.save();
         return res.status(201).json({ success: true, message: 'Successfully registered.' });
     } catch(error) {
-        winston.error(error);
         res.status(500).json({message: "Internal Server Error"});
     }
 }

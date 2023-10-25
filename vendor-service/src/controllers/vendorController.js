@@ -1,7 +1,6 @@
 import Vendor from "../models/Vendor.js";
 
 const getVendors = async(req, res) => {
-    console.log("hiiiiiiiiiii");
     const vendor = await Vendor.find();
     console.log(vendor,"vendorssssss");
     if(!vendor){
