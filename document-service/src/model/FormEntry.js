@@ -10,11 +10,12 @@ const formEntrySchema = new Schema({
     productName: {type: String, required: true},
     quantity : {type: Number, required: true},
     dateOfShipping : {type: Date, required: true}, 
-    vendorOptions: {
+    vendorOptions: [{
         schedule1: {type: Date},
         schedule2: {type: Date},
         schedule3: {type: Date}
-      },
+      }],
+      
     selectedSchedule : {type: Date},
     documentUrl : {type: String, required: true},
 })

@@ -1,5 +1,4 @@
-import FormEntry from "../model/FormEntry.js";
-import decrypt from "../util/decrypt.js";
+import FormEntry from "../../model/FormEntry.js";
 import jwt from 'jsonwebtoken';
 
 const userUpload = async(req, res) => {
