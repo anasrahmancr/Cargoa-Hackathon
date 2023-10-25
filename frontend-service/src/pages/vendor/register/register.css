@@ -1,0 +1,19 @@
+.register-page{
+    background-image: url('user-login.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+Label{
+    font-family: 'Kameron', cursive;
+    font-size: medium;
+    text-align: center;
+}
+
+::placeholder{
+    font-family:'Courier New', Courier, monospace;
+}
+
+button{
+    font-family:'Times New Roman', Times, serif;
+}

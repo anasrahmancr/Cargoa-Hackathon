@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import '../../assets/login.css'
+import './login.css'
 import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
 
 
-export const Login = () => {
+export const VendorLogin = () => {
 
-  const [email, setEmail] = useState('');
+    const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
@@ -15,13 +15,12 @@ export const Login = () => {
     e.preventDefault();
     try {
         const response = await axios.post(
-          "http://localhost:5000/api/auth/login",
-          {email, password}
+          "http://localhost:8080/api/auth/login",
+          {email, password}, {withCredentials: true}
         );
          console.log("Logged in:",response.data);
         if(response.data.success){
-          localStorage.setItem('userToken',response.data.userToken)
-          navigate("/home");
+          navigate("/vendor-home");
         }else{
           navigate("/")
         }
@@ -69,13 +68,8 @@ export const Login = () => {
             >
               Login
             </button>
-            <div className='new-user'>New User?</div>
-            <button
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
-              Sign Up
-            </button>
+            <div className='new-user'>New Vendor?</div>
+            <Link to="/vendor-register" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Sign Up</Link>
           </div>
         </form>
       </div>

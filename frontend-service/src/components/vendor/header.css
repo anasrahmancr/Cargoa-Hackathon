@@ -1,0 +1,16 @@
+.navbar{
+    background-color: #700404;
+    padding: 20px 20px;
+}
+
+.left{
+    font-family: 'Kaushan Script', cursive;
+    font-size: xx-large;
+    color: #ffff;
+}
+
+.right{
+    font-family: 'Kameron', cursive;
+    align-self: center;
+    color: #ffff;
+}

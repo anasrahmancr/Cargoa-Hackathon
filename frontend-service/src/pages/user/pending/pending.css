@@ -1,0 +1,18 @@
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #EAEAEA;
+    border-radius: 20px;
+}
+
+.content{
+    background-color: #EAEAEA;
+}
+
+p{
+    font-family: 'Karma', serif;
+    font-weight: 600;
+    font-size: larger;
+}
