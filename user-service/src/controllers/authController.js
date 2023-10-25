@@ -20,8 +20,24 @@ const login = async(req, res) => {
         } 
         // Generate JWT Token
         const key = process.env.JWT_SECRET;
+        console.log(key);
+       
         const token = jwt.sign({userId: user._id, email: user.email}, key , {expiresIn: '24h'});
-
+        console.log(token);
+        if (token) {
+            jwt.verify(token, key, (err, decodedToken) => {
+              if (err) {
+                console.log("inside if decrypt");
+                res.status(401).json({ success: false, message: "Permission denied" });
+              } else {
+                console.log("else in decrypt");
+                const userId = decodedToken;
+                console.log(userId,"useriddddd")
+                // return decodedToken;
+              }
+            });
+          }
+        
         res.status(200).json({userToken: token, success: true});
 
     } catch (error) {
