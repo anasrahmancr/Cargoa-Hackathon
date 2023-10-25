@@ -22,6 +22,7 @@ export const Login = () => {
         );
          console.log("Logged in:",response.data);
         if(response.data.success){
+          localStorage.setItem('token', response.data.userToken)
           navigate("/home");
         }else{
           navigate("/")
