@@ -33,10 +33,12 @@ const login = async(req, res) => {
       // Register User 
 
 const register = async(req, res) => {
+    console.log("hiiiii");
+    console.log(req.body);
     winston.warn(`${req.body}`);
     try{
-        const {name, email, password} = req.body;
-        if(!name || ! email || !password){
+        const {username, email, password} = req.body;
+        if(!username || ! email || !password){
             return res.status(400).json({success: false, message: "Fill all the fields"});
         }
         const vendor = await Vendor.findOne({email : email});
@@ -48,7 +50,7 @@ const register = async(req, res) => {
         const hashedPassword = await hashing(password);
         
         const newVendor = new Vendor({
-          vendorname: name,
+          vendorname: username,
           email: email,
           password: hashedPassword,
         });

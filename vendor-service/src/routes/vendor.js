@@ -1,6 +1,9 @@
-import { Router } from "express";
+import express from 'express';
+const router = express.Router();
+import { getVendors } from '../controllers/vendorController.js';
 
+router.get('/getVendors', getVendors);
 
-router.post('/invitationResponse', invitationResponse);
+// router.post('/invitationResponse', invitationResponse);
 
-export default Router;
+export default router;
