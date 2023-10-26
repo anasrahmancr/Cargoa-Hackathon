@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 // Define routes
-app.use('/api/service', serviceRouter);
+app.use('/api/user', serviceRouter);
 app.use('/api/auth', authRouter);
 
 dotenv.config(); 

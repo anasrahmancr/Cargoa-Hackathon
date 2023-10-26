@@ -1,11 +1,7 @@
-import express from "express";
+import express from 'express';
 const router = express.Router();
+import  getUsers  from "../controllers/userController.js";
 
-// const JWT_SECRET = process.env.JWT_SECRET;
-
-router.get('/getJwtSecreKey', (req, res)=>{
-    console.log(process.env.JWT_SECRET,"procss ");
-    res.json({jwtSecret: process.env.JWT_SECRET})
-})
+router.get('/getUser/:userId',getUsers)
 
 export default router;
