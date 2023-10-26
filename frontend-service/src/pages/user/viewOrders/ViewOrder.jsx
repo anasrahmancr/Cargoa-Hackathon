@@ -35,7 +35,16 @@ export const ViewOrder = () => {
       <div className="wrapper-main">
         <div className="view-order-h m-10">View Orders</div>
         <div className="main-content">
+        <div className="back pl-14">
+          <Link
+            to="/home"
+            className=" text-black font-medium focus:outline-none focus:shadow-outline"
+          >
+            BACK
+          </Link>
+        </div>
           <div className="content">
+            
             <div className="w-full">
               {orders && orders.length > 0 ? ( // Check if userOrders exist and have at least one order
                 <table className="w-full">
@@ -57,7 +66,7 @@ export const ViewOrder = () => {
                         </th>
                         <th className="content-body p-3">{order.quantity}</th>
                         <th className="content-body p-3">
-                          {order.dateOfShipping}
+                        {order.dateOfShipping.split('T')[0]}
                         </th>
                         <th className="content-body p-3">
                           {order.documentUrl}

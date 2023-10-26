@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Header } from "../../../components/user/Header";
 import "./actionRequired.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-export const VendorActionRequired = ({order}) => {
+export const VendorActionRequired = (props) => {
+  const order = props.order;
+  const user = props.user;
 const navigate = useNavigate();
 const [date1, setDate1] = useState('');  
 const [date2, setDate2] = useState('');  
-const [date3, setDate3] = useState('');  
+const [date3, setDate3] = useState(''); 
 
   const handleSubmit = async(e) => {
     e.preventDefault();
@@ -43,9 +45,17 @@ const [date3, setDate3] = useState('');
             <div className="content flex flex-col gap-3">
               <p>Product Name : {order.productName}</p>
               <p>Quantity : {order.quantity}</p>
-              <p>Date Of Shipping : {order.dateOfShipping}</p>
-              <p>Vendor : {order.vendorId}</p>
-              <p>Purchase Order : {order.documentUrl}</p>
+              <p>Date Of Shipping : {order.dateOfShipping.split('T')[0]}</p>
+              <p>User : </p>
+                {user ? (
+                  <p>{user.username}</p>
+                )  : (
+                  <p>Loading...</p>
+                )}
+              <p>Purchase Order :</p>
+              <a href={order.pdfUrl} target="_blank" rel="noopener noreferrer">{order.documentUrl}</a>
+
+
               <div className="flex justify-center items-center">
                 <p>Shipping Schedule 1 :</p>
                 

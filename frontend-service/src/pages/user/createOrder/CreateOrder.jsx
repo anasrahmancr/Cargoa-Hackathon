@@ -14,6 +14,7 @@ export const CreateOrder = () => {
   const [vendorId, setVendorId] = useState("");
   const [purchaseOrder, setPurchaseOrder] = useState("");
   const [vendor, setVendor] = useState([]);
+  const [pdfUrl, setPdfUrl] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,6 +49,7 @@ export const CreateOrder = () => {
       );
       const data1 = await response.json();
       console.log(data1, "data1");
+      setPdfUrl(data1.secure_url)
     } catch (error) {
       console.error("Error uploading file:", error);
     }
@@ -57,6 +59,7 @@ export const CreateOrder = () => {
     e.preventDefault();
     try {
       console.log(
+        pdfUrl,
         productName,
         quantity,
         dateOfShipping,
@@ -74,6 +77,7 @@ export const CreateOrder = () => {
           dateOfShipping,
           vendorId,
           purchaseOrders,
+          pdfUrl
         },
         {
           headers: {

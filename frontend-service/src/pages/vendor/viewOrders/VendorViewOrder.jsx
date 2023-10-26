@@ -58,7 +58,7 @@ export const VendorViewOrder = () => {
                         </th>
                         <th className="content-body p-3">{order.quantity}</th>
                         <th className="content-body p-3">
-                          {order.dateOfShipping}
+                        {order.dateOfShipping.split('T')[0]}
                         </th>
                         <th className="content-body p-3">
                           {order.documentUrl}

@@ -8,6 +8,8 @@ import axios from 'axios';
 const ViewData = () => {
   const { orderId } = useParams();
   const [order, setOrder] = useState(null);
+  const [vendor, setVendor] = useState(null);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,13 +18,18 @@ const ViewData = () => {
         const response = await axios.get(`http://localhost:7000/api/user/viewData/${orderId}`);
         setOrder(response.data.order);
         console.log("order in view data user", response.data.order);
+        if(order){
+          const response = await axios.get(`http://localhost:8080/api/vendor/getVendor/${order.vendorId}`);
+          setVendor(response.data.vendor);
+          console.log("order in view data username", response.data.vendor.vendorname);
+        }
       } catch (error) {
         console.error('Error fetching order details:', error);
       }
     };
 
     fetchData();
-  }, [orderId]);
+  }, [orderId, vendor]);
 
   return (
     <div>
@@ -30,11 +37,11 @@ const ViewData = () => {
         <div>
           {(() => {
             if (order.vendorOptions.length > 0 && order.selectedSchedule)  {
-                return <Complete order={order} />;
+                return <Complete order={order} vendor={vendor} />;
             } else if (order.vendorOptions.length > 0) {
-                return <ActionRequired order={order} />;
+                return <ActionRequired order={order} vendor={vendor} />;
             } else {
-              return <Pending order={order}/>;
+              return <Pending order={order} vendor={vendor}/>;
             }
           })()}
         </div>
