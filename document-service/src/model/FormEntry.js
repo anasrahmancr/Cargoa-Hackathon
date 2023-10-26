@@ -18,6 +18,7 @@ const formEntrySchema = new Schema({
       
     selectedSchedule : {type: Date},
     documentUrl : {type: String, required: true},
+    pdfUrl: {type: String, required: true}
 })
 
 const FormEntry = model("FormEntry", formEntrySchema);

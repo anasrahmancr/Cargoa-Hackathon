@@ -3,10 +3,10 @@ import jwt from 'jsonwebtoken';
 
 const userUpload = async(req, res) => {
   try {
-    const {productName, quantity, dateOfShipping, vendorId, purchaseOrders } = req.body;
+    const {productName, quantity, dateOfShipping, vendorId, purchaseOrders, pdfUrl } = req.body;
     console.log(req.body, "check req.bodyYYYYYY");
     
-    if(!vendorId || !productName || !quantity || !dateOfShipping || !purchaseOrders){
+    if(!vendorId || !productName || !quantity || !dateOfShipping || !purchaseOrders || !pdfUrl){
       return res.status(400).json({message: "Fill all the fields"});
     }
     
@@ -26,7 +26,7 @@ const userUpload = async(req, res) => {
       quantity: quantity,
       dateOfShipping: dateOfShipping,
       documentUrl: purchaseOrders,
-
+      pdfUrl : pdfUrl
     });
 
     formEntry.save();
@@ -39,16 +39,27 @@ const userUpload = async(req, res) => {
 
 const selectSchedule = async(req, res) => {
   console.log(req.body, "selected schedule");
+  const orderId = req.params.orderId;
   try{
-    const {selectSchedule} = req.body;
-    const formId = req.params.id;
-    if(!selectedSchedule){
+    const {selectedOption} = req.body;
+    if(!selectedOption){
       res.status(404).json({success: false, message: "Select a Schedule"});
     }
-    await FormEntry.findOneAndUpdate({_id: formId},
-      {$set: {
-        selectedSchedule: selectSchedule
-      }})
+
+    const existingForm = await FormEntry.findOne({ _id: orderId });
+    if (!existingForm) {
+      return res.status(404).json({ success: false, message: "Document not found" });
+    }
+    const selectedDate = existingForm.vendorOptions[0]
+    console.log("selectedDate =",selectedDate)
+    console.log("selectedOption =",selectedOption)
+
+    console.log("selectedDate.selectedOption =",selectedDate[selectedOption])
+    existingForm.selectedSchedule = selectedDate[selectedOption];
+
+    const updatedForm = await existingForm.save();
+  
+    console.log(updatedForm);
       res.status(200).json({success: true})
   } catch(error) {
     console.error(error);
@@ -56,4 +67,4 @@ const selectSchedule = async(req, res) => {
   }
 }
 
-export default userUpload;
+export  {userUpload, selectSchedule};
